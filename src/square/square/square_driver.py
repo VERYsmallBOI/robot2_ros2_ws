@@ -31,7 +31,7 @@ class SquareDriver(Node):
             if elapsed > 5.0:  # Go straight for 5 seconds (~0.5m)
                 self.state = "turn"
                 self.last_switch_time = now
-                self.get_logger().info(f"🟩 Completed side {self.side_count + 1}, turning...")
+                self.get_logger().info(f" Completed side {self.side_count + 1}, turning...")
 
         elif self.state == "turn":
             msg.twist.linear.x = 0.0
@@ -41,7 +41,7 @@ class SquareDriver(Node):
                 self.side_count += 1
                 self.last_switch_time = now
                 if self.side_count >= 4:
-                    self.get_logger().info("🔁 Square complete, looping again.")
+                    self.get_logger().info(" Square complete, looping again.")
                     self.side_count = 0
 
         self.publisher.publish(msg)
@@ -53,7 +53,7 @@ def main(args=None):
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        node.get_logger().info("🛑 SquareDriver stopped.")
+        node.get_logger().info(" SquareDriver stopped.")
     finally:
         node.destroy_node()
         rclpy.shutdown()
